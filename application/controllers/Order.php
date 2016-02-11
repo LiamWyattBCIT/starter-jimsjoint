@@ -19,8 +19,16 @@ class Order extends Application {
     function neworder() {
         //create the variable and assign a value before using it
         $order_num = $this->orders->highest() + 1;
+        
+        $newOrder = $this->orders->create($order_num);
+        $newOrder->num = $order_num;
+        $newOrder->date = date();
+        $newOrder->status - 'a';
+        $newOrder->total = 0;
+        $this-orders-add($newOrder);
+        
         redirect('/order/display_menu/' . $order_num);
-        $this->orders->create($order_num);
+        
         
     }
 
