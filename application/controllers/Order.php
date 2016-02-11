@@ -17,15 +17,19 @@ class Order extends Application {
 
     // start a new order
     function neworder() {
-        //FIXME
-
+        //create the variable and assign a value before using it
+        $order_num = $this->orders->highest() + 1;
         redirect('/order/display_menu/' . $order_num);
+        $this->orders->create($order_num);
+        
     }
 
     // add to an order
-    function display_menu($order_num = null) {
-        if ($order_num == null)
+    function display_menu($order_num) {
+        
+        if ($order_num == null) {
             redirect('/order/neworder');
+        }
 
         $this->data['pagebody'] = 'show_menu';
         $this->data['order_num'] = $order_num;
