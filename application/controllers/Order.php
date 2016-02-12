@@ -42,7 +42,8 @@ class Order extends Application {
         $this->data['pagebody'] = 'show_menu';
         $this->data['order_num'] = $order_num;
         //FIXME
-        $this->data['title'] = "Order  # ".$order_num; 
+        $this->data['title'] = "Order  # ".$order_num . '($' . number_format($this->orders->total($order_num),2) . ')';
+ 
 
         // Make the columns
         $this->data['meals'] = $this->make_column('m');
@@ -91,7 +92,19 @@ class Order extends Application {
         $this->data['title'] = 'Checking Out';
         $this->data['pagebody'] = 'show_order';
         $this->data['order_num'] = $order_num;
-        //FIXME
+        
+        
+        $this->data['total'] = number_format($this->orders->total($order_num),2);
+       
+        $items = $this->orderitems->group($order_num); 
+        foreach ($items as $item)
+        {
+            $menuitem = $this->menu->get($item->item);
+            $item->code = $menuitem->name;
+        }
+        $this->data['items'] = $items; 
+        $this->data['okornot'] = $this->orders->validate($order_num)?"":"disabled";
+        
 
         $this->render();
     }
