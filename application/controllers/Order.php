@@ -12,7 +12,7 @@
 class Order extends Application {
 
     function __construct() {
-        parent::__construct();
+        parent::__construct(); 
     }
 
     // start a new order
@@ -20,12 +20,12 @@ class Order extends Application {
         //create the variable and assign a value before using it
         $order_num = $this->orders->highest() + 1;
         
-        $newOrder = $this->orders->create($order_num);
-        $newOrder->num = $order_num;
-        $newOrder->date = date();
-        $newOrder->status - 'a';
-        $newOrder->total = 0;
-        $this-orders-add($newOrder);
+        $neworder = $this->orders->create($order_num);
+        $neworder->num = $order_num;
+        $neworder->date = date();
+        $neworder->status - 'a';
+        $neworder->total = 0;
+        $this->orders->add($neworder);
         
         redirect('/order/display_menu/' . $order_num);
         
@@ -33,7 +33,7 @@ class Order extends Application {
     }
 
     // add to an order
-    function display_menu($order_num) {
+    function display_menu($order_num = null) {
         
         if ($order_num == null) {
             redirect('/order/neworder');
@@ -42,6 +42,7 @@ class Order extends Application {
         $this->data['pagebody'] = 'show_menu';
         $this->data['order_num'] = $order_num;
         //FIXME
+        $this->data['title'] = "Order  # ".$order_num; 
 
         // Make the columns
         $this->data['meals'] = $this->make_column('m');
@@ -76,7 +77,7 @@ class Order extends Application {
     // make a menu ordering column
     function make_column($category) {
         //FIXME
-        return $items;
+        return $this->menu->some('category',$category);
     }
 
     // add an item to an order
