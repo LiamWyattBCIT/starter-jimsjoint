@@ -158,7 +158,7 @@ class MY_Model extends CI_Model implements Active_Record {
     function fields() {
         return $this->db->list_fields($this->_tableName);
     }
-
+    
 //---------------------------------------------------------------------------
 //  C R U D methods
 //---------------------------------------------------------------------------
