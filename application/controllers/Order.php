@@ -110,7 +110,7 @@ class Order extends Application {
     }
 
     // proceed with checkout
-    function proceed($order_num) {
+    function commit($order_num) {
 
         if (!$this->orders->validate($order_num)) {
             redirect('/order/display_menu/');
